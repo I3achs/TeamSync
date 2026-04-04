@@ -1,0 +1,1 @@
+[{"name":"ac-kdsa15i-shard-00-01.wdkm3vu.mongodb.net","port":27017,"priority":0,"weight":0,"type":"SRV"},{"name":"ac-kdsa15i-shard-00-00.wdkm3vu.mongodb.net","port":27017,"priority":0,"weight":0,"type":"SRV"},{"name":"ac-kdsa15i-shard-00-02.wdkm3vu.mongodb.net","port":27017,"priority":0,"weight":0,"type":"SRV"}]

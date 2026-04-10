@@ -38,17 +38,17 @@ export function NavMain() {
 
   const items: ItemType[] = [
     {
-      title: "Dashboard",
+      title: "Bảng điều khiển",
       url: `/workspace/${workspaceId}`,
       icon: LayoutDashboard,
     },
     {
-      title: "Tasks",
+      title: "Công việc",
       url: `/workspace/${workspaceId}/tasks`,
       icon: CheckCircle,
     },
     {
-      title: "Members",
+      title: "Thành viên",
       url: `/workspace/${workspaceId}/members`,
       icon: Users,
     },
@@ -56,7 +56,7 @@ export function NavMain() {
     ...(canManageSettings
       ? [
           {
-            title: "Settings",
+            title: "Cài đặt",
             url: `/workspace/${workspaceId}/settings`,
             icon: Settings,
           },

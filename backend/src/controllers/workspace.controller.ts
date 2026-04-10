@@ -30,7 +30,7 @@ export const createWorkspaceController = asyncHandler(
     const { workspace } = await createWorkspaceService(userId, body);
 
     return res.status(HTTPSTATUS.CREATED).json({
-      message: "Workspace created successfully",
+      message: "Tạo Không gian làm việc thành công",
       workspace,
     });
   }
@@ -45,7 +45,7 @@ export const getAllWorkspacesUserIsMemberController = asyncHandler(
     const { workspaces } = await getAllWorkspacesUserIsMemberService(userId);
 
     return res.status(HTTPSTATUS.OK).json({
-      message: "User workspaces fetched successfully",
+      message: "Lấy danh sách Không gian làm việc thành công",
       workspaces,
     });
   }
@@ -61,7 +61,7 @@ export const getWorkspaceByIdController = asyncHandler(
     const { workspace } = await getWorkspaceByIdService(workspaceId);
 
     return res.status(HTTPSTATUS.OK).json({
-      message: "Workspace fetched successfully",
+      message: "Tải Không gian làm việc thành công",
       workspace,
     });
   }
@@ -78,7 +78,7 @@ export const getWorkspaceMembersController = asyncHandler(
     const { members, roles } = await getWorkspaceMembersService(workspaceId);
 
     return res.status(HTTPSTATUS.OK).json({
-      message: "Workspace members retrieved successfully",
+      message: "Lấy danh sách thành viên thành công",
       members,
       roles,
     });
@@ -96,7 +96,7 @@ export const getWorkspaceAnalyticsController = asyncHandler(
     const { analytics } = await getWorkspaceAnalyticsService(workspaceId);
 
     return res.status(HTTPSTATUS.OK).json({
-      message: "Workspace analytics retrieved successfully",
+      message: "Lấy dữ liệu phân tích thành công",
       analytics,
     });
   }
@@ -119,7 +119,7 @@ export const changeWorkspaceMemberRoleController = asyncHandler(
     );
 
     return res.status(HTTPSTATUS.OK).json({
-      message: "Member Role changed successfully",
+      message: "Cập nhật vai trò thành công",
       member,
     });
   }
@@ -142,7 +142,7 @@ export const updateWorkspaceByIdController = asyncHandler(
     );
 
     return res.status(HTTPSTATUS.OK).json({
-      message: "Workspace updated successfully",
+      message: "Cập nhật Không gian làm việc thành công",
       workspace,
     });
   }
@@ -163,7 +163,7 @@ export const deleteWorkspaceByIdController = asyncHandler(
     );
 
     return res.status(HTTPSTATUS.OK).json({
-      message: "Workspace deleted successfully",
+      message: "Xóa Không gian làm việc thành công",
       currentWorkspace,
     });
   }

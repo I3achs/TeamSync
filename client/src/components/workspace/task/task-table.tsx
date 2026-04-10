@@ -159,7 +159,7 @@ const DataTableFilterToolbar: FC<DataTableFilterToolbarProps> = ({
   return (
     <div className="flex flex-col lg:flex-row w-full items-start space-y-2 mb-2 lg:mb-0 lg:space-x-2  lg:space-y-0">
       <Input
-        placeholder="Filter tasks..."
+        placeholder="Lọc công việc..."
         value={filters.keyword || ""}
         onChange={(e) =>
           setFilters({
@@ -170,7 +170,7 @@ const DataTableFilterToolbar: FC<DataTableFilterToolbarProps> = ({
       />
       {/* Status filter */}
       <DataTableFacetedFilter
-        title="Status"
+        title="Trạng thái"
         multiSelect={true}
         options={statuses}
         disabled={isLoading}
@@ -180,7 +180,7 @@ const DataTableFilterToolbar: FC<DataTableFilterToolbarProps> = ({
 
       {/* Priority filter */}
       <DataTableFacetedFilter
-        title="Priority"
+        title="Mức độ ưu tiên"
         multiSelect={true}
         options={priorities}
         disabled={isLoading}
@@ -190,7 +190,7 @@ const DataTableFilterToolbar: FC<DataTableFilterToolbarProps> = ({
 
       {/* Assigned To filter */}
       <DataTableFacetedFilter
-        title="Assigned To"
+        title="Người phụ trách"
         multiSelect={true}
         options={assigneesOptions}
         disabled={isLoading}
@@ -200,7 +200,7 @@ const DataTableFilterToolbar: FC<DataTableFilterToolbarProps> = ({
 
       {!projectId && (
         <DataTableFacetedFilter
-          title="Projects"
+          title="Dự án"
           multiSelect={false}
           options={projectOptions}
           disabled={isLoading}
@@ -226,7 +226,7 @@ const DataTableFilterToolbar: FC<DataTableFilterToolbarProps> = ({
             })
           }
         >
-          Reset
+          Đặt lại
           <X />
         </Button>
       )}

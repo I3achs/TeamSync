@@ -40,7 +40,7 @@ export default function EditProjectForm(props: {
 
   const formSchema = z.object({
     name: z.string().trim().min(1, {
-      message: "Project title is required",
+      message: "Vui lòng nhập tên Dự án",
     }),
     description: z.string().trim(),
   });
@@ -87,7 +87,7 @@ export default function EditProjectForm(props: {
         });
 
         toast({
-          title: "Success",
+          title: "Thành công",
           description: data.message,
           variant: "success",
         });
@@ -96,7 +96,7 @@ export default function EditProjectForm(props: {
       },
       onError: (error) => {
         toast({
-          title: "Error",
+          title: "Lỗi",
           description: error.message,
           variant: "destructive",
         });
@@ -112,17 +112,17 @@ export default function EditProjectForm(props: {
             className="text-xl tracking-[-0.16px] dark:text-[#fcfdffef] font-semibold mb-1
            text-center sm:text-left"
           >
-            Edit Project
+            Sửa Dự án
           </h1>
           <p className="text-muted-foreground text-sm leading-tight">
-            Update the project details to refine task management
+            Cập nhật thông tin dự án để cải thiện quản lý công việc
           </p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">
-                Select Emoji
+                Chọn Biểu tượng
               </label>
               <Popover>
                 <PopoverTrigger asChild>
@@ -145,7 +145,7 @@ export default function EditProjectForm(props: {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="dark:text-[#f1f7feb5] text-sm">
-                      Project title
+                      Tên Dự án
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="" className="!h-[48px]" {...field} />
@@ -162,15 +162,15 @@ export default function EditProjectForm(props: {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="dark:text-[#f1f7feb5] text-sm">
-                      Project description
+                      Mô tả Dự án
                       <span className="text-xs font-extralight ml-2">
-                        Optional
+                        Tùy chọn
                       </span>
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         rows={4}
-                        placeholder="Projects description"
+                        placeholder="Mô tả chi tiết dự án"
                         {...field}
                       />
                     </FormControl>
@@ -186,7 +186,7 @@ export default function EditProjectForm(props: {
               type="submit"
             >
               {isPending && <Loader className="animate-spin" />}
-              Update
+              Cập nhật
             </Button>
           </form>
         </Form>

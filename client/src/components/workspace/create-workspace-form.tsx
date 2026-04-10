@@ -34,7 +34,7 @@ export default function CreateWorkspaceForm({
 
   const formSchema = z.object({
     name: z.string().trim().min(1, {
-      message: "Workspace name is required",
+      message: "Vui lòng nhập tên Không gian",
     }),
     description: z.string().trim(),
   });
@@ -61,7 +61,7 @@ export default function CreateWorkspaceForm({
       },
       onError: (error) => {
         toast({
-          title: "Error",
+          title: "Lỗi",
           description: error.message,
           variant: "destructive",
         });
@@ -77,11 +77,10 @@ export default function CreateWorkspaceForm({
             className="text-2xl tracking-[-0.16px] dark:text-[#fcfdffef] font-semibold mb-1.5
            text-center sm:text-left"
           >
-            Let's build a Workspace
+            Tạo Không gian làm việc
           </h1>
           <p className="text-muted-foreground text-lg leading-tight">
-            Boost your productivity by making it easier for everyone to access
-            projects in one location.
+            Tăng cường năng suất với việc quản lý các dự án của mọi người tập trung ở cùng một không gian.
           </p>
         </div>
         <Form {...form}>
@@ -93,7 +92,7 @@ export default function CreateWorkspaceForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="dark:text-[#f1f7feb5] text-sm">
-                      Workspace name
+                      Tên Không gian
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -103,7 +102,7 @@ export default function CreateWorkspaceForm({
                       />
                     </FormControl>
                     <FormDescription>
-                      This is the name of your company, team or organization.
+                      Đây là tên của công ty, đội nhóm hoặc tổ chức của bạn.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -117,9 +116,9 @@ export default function CreateWorkspaceForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="dark:text-[#f1f7feb5] text-sm">
-                      Workspace description
+                      Mô tả chi tiết
                       <span className="text-xs font-extralight ml-2">
-                        Optional
+                        Tùy chọn
                       </span>
                     </FormLabel>
                     <FormControl>
@@ -130,8 +129,7 @@ export default function CreateWorkspaceForm({
                       />
                     </FormControl>
                     <FormDescription>
-                      Get your members on board with a few words about your
-                      Workspace.
+                      Thêm vài dòng mô tả để các thành viên hiểu rõ hơn về Không gian của bạn.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -145,7 +143,7 @@ export default function CreateWorkspaceForm({
               type="submit"
             >
               {isPending && <Loader className="animate-spin" />}
-              Create Workspace
+              Tạo Không gian
             </Button>
           </form>
         </Form>

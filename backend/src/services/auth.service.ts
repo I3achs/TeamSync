@@ -47,8 +47,8 @@ export const loginOrCreateAccountService = async (data: {
 
       // 3. Create a new workspace for the new user
       const workspace = new WorkspaceModel({
-        name: `My Workspace`,
-        description: `Workspace created for ${user.name}`,
+        name: `Không gian của tôi`,
+        description: `Không gian làm việc được tạo cho ${user.name}`,
         owner: user._id,
       });
       await workspace.save({ session });
@@ -58,7 +58,7 @@ export const loginOrCreateAccountService = async (data: {
       }).session(session);
 
       if (!ownerRole) {
-        throw new NotFoundException("Owner role not found");
+        throw new NotFoundException("Không tìm thấy vai trò Chủ sở hữu");
       }
 
       const member = new MemberModel({
@@ -99,7 +99,7 @@ export const registerUserService = async (body: {
 
     const existingUser = await UserModel.findOne({ email }).session(session);
     if (existingUser) {
-      throw new BadRequestException("Email already exists");
+      throw new BadRequestException("Email đã tồn tại");
     }
 
     const user = new UserModel({
@@ -118,8 +118,8 @@ export const registerUserService = async (body: {
 
     // 3. Create a new workspace for the new user
     const workspace = new WorkspaceModel({
-      name: `My Workspace`,
-      description: `Workspace created for ${user.name}`,
+      name: `Không gian của tôi`,
+      description: `Không gian làm việc được tạo cho ${user.name}`,
       owner: user._id,
     });
     await workspace.save({ session });
@@ -129,7 +129,7 @@ export const registerUserService = async (body: {
     }).session(session);
 
     if (!ownerRole) {
-      throw new NotFoundException("Owner role not found");
+      throw new NotFoundException("Không tìm thấy vai trò Chủ sở hữu");
     }
 
     const member = new MemberModel({
@@ -170,18 +170,18 @@ export const verifyUserService = async ({
 }) => {
   const account = await AccountModel.findOne({ provider, providerId: email });
   if (!account) {
-    throw new NotFoundException("Invalid email or password");
+    throw new NotFoundException("Email hoặc mật khẩu không hợp lệ");
   }
 
   const user = await UserModel.findById(account.userId);
 
   if (!user) {
-    throw new NotFoundException("User not found for the given account");
+    throw new NotFoundException("Không tìm thấy người dùng");
   }
 
   const isMatch = await user.comparePassword(password);
   if (!isMatch) {
-    throw new UnauthorizedException("Invalid email or password");
+    throw new UnauthorizedException("Email hoặc mật khẩu không hợp lệ");
   }
 
   return user.omitPassword();

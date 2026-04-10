@@ -13,7 +13,7 @@ const Settings = () => {
       <main>
         <div className="w-full max-w-3xl mx-auto py-3">
           <h2 className="text-[20px] leading-[30px] font-semibold mb-3">
-            Workspace settings
+            Cài đặt Không gian làm việc
           </h2>
 
           <div className="flex flex-col pt-0.5 px-0 ">

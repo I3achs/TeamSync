@@ -55,14 +55,14 @@ const AllMembers = () => {
           queryKey: ["members", workspaceId],
         });
         toast({
-          title: "Success",
-          description: "Member's role changed successfully",
+          title: "Thành công",
+          description: "Thay đổi vai trò thành viên thành công",
           variant: "success",
         });
       },
       onError: (error) => {
         toast({
-          title: "Error",
+          title: "Lỗi",
           description: error.message,
           variant: "destructive",
         });
@@ -122,7 +122,7 @@ const AllMembers = () => {
                   <PopoverContent className="p-0" align="end">
                     <Command>
                       <CommandInput
-                        placeholder="Select new role..."
+                        placeholder="Chọn vai trò mới..."
                         disabled={isLoading}
                         className="disabled:pointer-events-none"
                       />
@@ -131,7 +131,7 @@ const AllMembers = () => {
                           <Loader className="w-8 h-8 animate-spin place-self-center flex my-4" />
                         ) : (
                           <>
-                            <CommandEmpty>No roles found.</CommandEmpty>
+                            <CommandEmpty>Không tìm thấy vai trò nào.</CommandEmpty>
                             <CommandGroup>
                               {roles?.map(
                                 (role) =>
@@ -152,10 +152,10 @@ const AllMembers = () => {
                                       </p>
                                       <p className="text-sm text-muted-foreground">
                                         {role.name === "ADMIN" &&
-                                          `Can view, create, edit tasks, project and manage settings .`}
+                                          `Có thể xem, tạo, sửa công việc, dự án và quản lý cài đặt.`}
 
                                         {role.name === "MEMBER" &&
-                                          `Can view,edit only task created by.`}
+                                          `Chỉ có thể xem và chỉnh sửa công việc trong phạm vi được giao.`}
                                       </p>
                                     </CommandItem>
                                   )

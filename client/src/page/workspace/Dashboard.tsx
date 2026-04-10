@@ -14,15 +14,15 @@ const WorkspaceDashboard = () => {
       <div className="flex items-center justify-between space-y-2 mb-6">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">
-            Workspace Overview
+            Tổng quan Không gian
           </h2>
           <p className="text-muted-foreground">
-            Here&apos;s an overview for this workspace!
+            Dưới đây là thông tin tổng quan về Không gian làm việc này!
           </p>
         </div>
         <Button onClick={onOpen}>
           <Plus />
-          New Project
+          Tạo Dự án
         </Button>
       </div>
       <WorkspaceAnalytics />
@@ -30,13 +30,13 @@ const WorkspaceDashboard = () => {
         <Tabs defaultValue="projects" className="w-full border rounded-lg p-2">
           <TabsList className="w-full justify-start border-0 bg-gray-50 px-1 h-12">
             <TabsTrigger className="py-2" value="projects">
-              Recent Projects
+              Dự án gần đây
             </TabsTrigger>
             <TabsTrigger className="py-2" value="tasks">
-              Recent Tasks
+              Công việc gần đây
             </TabsTrigger>
             <TabsTrigger className="py-2" value="members">
-              Recent Members
+              Thành viên mới
             </TabsTrigger>
           </TabsList>
           <TabsContent value="projects">

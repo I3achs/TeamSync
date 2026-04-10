@@ -108,7 +108,7 @@ const Asidebar = () => {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => setIsOpen(true)}>
                       <LogOut />
-                      Log out
+                      Đăng xuất
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

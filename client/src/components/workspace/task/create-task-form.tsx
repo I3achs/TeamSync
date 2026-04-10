@@ -100,29 +100,29 @@ export default function CreateTaskForm(props: {
 
   const formSchema = z.object({
     title: z.string().trim().min(1, {
-      message: "Title is required",
+      message: "Vui lòng nhập tiêu đề",
     }),
     description: z.string().trim(),
     projectId: z.string().trim().min(1, {
-      message: "Project is required",
+      message: "Vui lòng chọn Dự án",
     }),
     status: z.enum(
       Object.values(TaskStatusEnum) as [keyof typeof TaskStatusEnum],
       {
-        required_error: "Status is required",
+        required_error: "Vui lòng chọn Trạng thái",
       }
     ),
     priority: z.enum(
       Object.values(TaskPriorityEnum) as [keyof typeof TaskPriorityEnum],
       {
-        required_error: "Priority is required",
+        required_error: "Vui lòng chọn Mức độ ưu tiên",
       }
     ),
     assignedTo: z.string().trim().min(1, {
-      message: "AssignedTo is required",
+      message: "Vui lòng chọn Người phụ trách",
     }),
     dueDate: z.date({
-      required_error: "A date of birth is required.",
+      required_error: "Vui lòng chọn Hạn chót.",
     }),
   });
 
@@ -163,15 +163,15 @@ export default function CreateTaskForm(props: {
         });
 
         toast({
-          title: "Success",
-          description: "Task created successfully",
+          title: "Thành công",
+          description: "Tạo Công việc thành công",
           variant: "success",
         });
         onClose();
       },
       onError: (error) => {
         toast({
-          title: "Error",
+          title: "Lỗi",
           description: error.message,
           variant: "destructive",
         });
@@ -187,10 +187,10 @@ export default function CreateTaskForm(props: {
             className="text-xl tracking-[-0.16px] dark:text-[#fcfdffef] font-semibold mb-1
            text-center sm:text-left"
           >
-            Create Task
+            Tạo Công việc
           </h1>
           <p className="text-muted-foreground text-sm leading-tight">
-            Organize and manage tasks, resources, and team collaboration
+            Sắp xếp và quản lý công việc, tài nguyên và cộng tác nhóm
           </p>
         </div>
         <Form {...form}>
@@ -202,11 +202,11 @@ export default function CreateTaskForm(props: {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="dark:text-[#f1f7feb5] text-sm">
-                      Task title
+                      Tiêu đề Công việc
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Website Redesign"
+                        placeholder="Thiết kế lại Website"
                         className="!h-[48px]"
                         {...field}
                       />
@@ -225,13 +225,13 @@ export default function CreateTaskForm(props: {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="dark:text-[#f1f7feb5] text-sm">
-                      Task description
+                      Mô tả Công việc
                       <span className="text-xs font-extralight ml-2">
-                        Optional
+                        Tùy chọn
                       </span>
                     </FormLabel>
                     <FormControl>
-                      <Textarea rows={1} placeholder="Description" {...field} />
+                      <Textarea rows={1} placeholder="Mô tả chi tiết" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -248,14 +248,14 @@ export default function CreateTaskForm(props: {
                   name="projectId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Project</FormLabel>
+                      <FormLabel>Dự án</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select a project" />
+                            <SelectValue placeholder="Chọn Dự án" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -296,14 +296,14 @@ export default function CreateTaskForm(props: {
                 name="assignedTo"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Assigned To</FormLabel>
+                    <FormLabel>Người phụ trách</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a assignee" />
+                          <SelectValue placeholder="Chọn người phụ trách" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -337,7 +337,7 @@ export default function CreateTaskForm(props: {
                 name="dueDate"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Due Date</FormLabel>
+                    <FormLabel>Hạn chót</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -351,7 +351,7 @@ export default function CreateTaskForm(props: {
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
-                              <span>Pick a date</span>
+                              <span>Chọn ngày</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -388,7 +388,7 @@ export default function CreateTaskForm(props: {
                 name="status"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Status</FormLabel>
+                    <FormLabel>Trạng thái</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -397,7 +397,7 @@ export default function CreateTaskForm(props: {
                         <SelectTrigger>
                           <SelectValue
                             className="!text-muted-foreground !capitalize"
-                            placeholder="Select a status"
+                            placeholder="Chọn Trạng thái"
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -426,14 +426,14 @@ export default function CreateTaskForm(props: {
                 name="priority"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Priority</FormLabel>
+                    <FormLabel>Mức độ ưu tiên</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a priority" />
+                          <SelectValue placeholder="Chọn Mức độ ưu tiên" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -460,7 +460,7 @@ export default function CreateTaskForm(props: {
               disabled={isPending}
             >
               {isPending && <Loader className="animate-spin" />}
-              Create
+              Tạo mới
             </Button>
           </form>
         </Form>

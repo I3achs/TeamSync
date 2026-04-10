@@ -34,7 +34,7 @@ export default function EditWorkspaceForm() {
 
   const formSchema = z.object({
     name: z.string().trim().min(1, {
-      message: "Workspace name is required",
+      message: "Vui lòng nhập tên Không gian",
     }),
     description: z.string().trim(),
   });
@@ -71,7 +71,7 @@ export default function EditWorkspaceForm() {
       },
       onError: (error) => {
         toast({
-          title: "Error",
+          title: "Lỗi",
           description: error.message,
           variant: "destructive",
         });
@@ -87,7 +87,7 @@ export default function EditWorkspaceForm() {
             className="text-[17px] tracking-[-0.16px] dark:text-[#fcfdffef] font-semibold mb-1.5
            text-center sm:text-left"
           >
-            Edit Workspace
+            Sửa Không gian làm việc
           </h1>
         </div>
         <Form {...form}>
@@ -99,11 +99,11 @@ export default function EditWorkspaceForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="dark:text-[#f1f7feb5] text-sm">
-                      Workspace name
+                      Tên Không gian
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Taco's Co."
+                        placeholder="Công ty Taco"
                         className="!h-[48px] disabled:opacity-90 disabled:pointer-events-none"
                         disabled={!canEditWorkspace}
                         {...field}
@@ -121,9 +121,9 @@ export default function EditWorkspaceForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="dark:text-[#f1f7feb5] text-sm">
-                      Workspace description
+                      Mô tả Không gian
                       <span className="text-xs font-extralight ml-2">
-                        Optional
+                        Tùy chọn
                       </span>
                     </FormLabel>
                     <FormControl>
@@ -131,7 +131,7 @@ export default function EditWorkspaceForm() {
                         rows={6}
                         disabled={!canEditWorkspace}
                         className="disabled:opacity-90 disabled:pointer-events-none"
-                        placeholder="Our team organizes marketing projects and tasks here."
+                        placeholder="Đội của chúng tôi quản lý các dự án marketing tại đây."
                         {...field}
                       />
                     </FormControl>
@@ -147,7 +147,7 @@ export default function EditWorkspaceForm() {
                 type="submit"
               >
                 {isPending && <Loader className="animate-spin" />}
-                Update Workspace
+                Cập nhật Không gian
               </Button>
             )}
           </form>

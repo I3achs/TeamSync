@@ -19,7 +19,7 @@ export class AppError extends Error {
 
 export class HttpException extends AppError {
   constructor(
-    message = "Http Exception Error",
+    message = "Lỗi giao tiếp Http",
     statusCode: HttpStatusCodeType,
     errorCode?: ErrorCodeEnumType
   ) {
@@ -29,7 +29,7 @@ export class HttpException extends AppError {
 
 export class InternalServerException extends AppError {
   constructor(
-    message = "Internal Server Error",
+    message = "Lỗi hệ thống máy chủ",
     errorCode?: ErrorCodeEnumType
   ) {
     super(
@@ -41,7 +41,7 @@ export class InternalServerException extends AppError {
 }
 
 export class NotFoundException extends AppError {
-  constructor(message = "Resource not found", errorCode?: ErrorCodeEnumType) {
+  constructor(message = "Không tìm thấy dữ liệu", errorCode?: ErrorCodeEnumType) {
     super(
       message,
       HTTPSTATUS.NOT_FOUND,
@@ -51,7 +51,7 @@ export class NotFoundException extends AppError {
 }
 
 export class BadRequestException extends AppError {
-  constructor(message = "Bad Request", errorCode?: ErrorCodeEnumType) {
+  constructor(message = "Yêu cầu không hợp lệ", errorCode?: ErrorCodeEnumType) {
     super(
       message,
       HTTPSTATUS.BAD_REQUEST,
@@ -61,7 +61,7 @@ export class BadRequestException extends AppError {
 }
 
 export class UnauthorizedException extends AppError {
-  constructor(message = "Unauthorized Access", errorCode?: ErrorCodeEnumType) {
+  constructor(message = "Không có quyền truy cập", errorCode?: ErrorCodeEnumType) {
     super(
       message,
       HTTPSTATUS.UNAUTHORIZED,

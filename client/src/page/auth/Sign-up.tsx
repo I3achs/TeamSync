@@ -34,13 +34,13 @@ const SignUp = () => {
   });
   const formSchema = z.object({
     name: z.string().trim().min(1, {
-      message: "Name is required",
+      message: "Vui lòng nhập họ và tên",
     }),
-    email: z.string().trim().email("Invalid email address").min(1, {
-      message: "Workspace name is required",
+    email: z.string().trim().email("Địa chỉ email không hợp lệ").min(1, {
+      message: "Vui lòng nhập email",
     }),
     password: z.string().trim().min(1, {
-      message: "Password is required",
+      message: "Vui lòng nhập mật khẩu",
     }),
   });
 
@@ -62,7 +62,7 @@ const SignUp = () => {
       onError: (error) => {
         console.log(error);
         toast({
-          title: "Error",
+          title: "Lỗi",
           description: error.message,
           variant: "destructive",
         });
@@ -83,9 +83,9 @@ const SignUp = () => {
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader className="text-center">
-              <CardTitle className="text-xl">Create an account</CardTitle>
+              <CardTitle className="text-xl">Tạo tài khoản</CardTitle>
               <CardDescription>
-                Signup with your Email or Google account
+                Đăng ký bằng Email hoặc tài khoản Google
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -93,11 +93,11 @@ const SignUp = () => {
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                   <div className="grid gap-6">
                     <div className="flex flex-col gap-4">
-                      <GoogleOauthButton label="Signup" />
+                      <GoogleOauthButton label="Đăng ký" />
                     </div>
                     <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                       <span className="relative z-10 bg-background px-2 text-muted-foreground">
-                        Or continue with
+                        Hoặc tiếp tục với
                       </span>
                     </div>
                     <div className="grid gap-2">
@@ -108,7 +108,7 @@ const SignUp = () => {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="dark:text-[#f1f7feb5] text-sm">
-                                Name
+                                Họ và tên
                               </FormLabel>
                               <FormControl>
                                 <Input
@@ -152,7 +152,7 @@ const SignUp = () => {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="dark:text-[#f1f7feb5] text-sm">
-                                Password
+                                Mật khẩu
                               </FormLabel>
                               <FormControl>
                                 <Input
@@ -173,13 +173,13 @@ const SignUp = () => {
                         className="w-full"
                       >
                         {isPending && <Loader className="animate-spin" />}
-                        Sign up
+                        Đăng ký
                       </Button>
                     </div>
                     <div className="text-center text-sm">
-                      Already have an account?{" "}
+                      Đã có tài khoản?{" "}
                       <Link to="/" className="underline underline-offset-4">
-                        Sign in
+                        Đăng nhập
                       </Link>
                     </div>
                   </div>
@@ -188,8 +188,8 @@ const SignUp = () => {
             </CardContent>
           </Card>
           <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-            By clicking continue, you agree to our{" "}
-            <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+            Bằng việc tiếp tục, bạn đồng ý với{" "}
+            <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a> của chúng tôi.
           </div>
         </div>
       </div>

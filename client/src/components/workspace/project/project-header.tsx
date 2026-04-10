@@ -30,11 +30,11 @@ const ProjectHeader = () => {
 
   // Fallback if no project data is found
   const projectEmoji = project?.emoji || "📊";
-  const projectName = project?.name || "Untitled project";
+  const projectName = project?.name || "Dự án không có tên";
 
   const renderContent = () => {
-    if (isPending) return <span>Loading...</span>;
-    if (isError) return <span>Error occured</span>;
+    if (isPending) return <span>Đang tải...</span>;
+    if (isError) return <span>Đã xảy ra lỗi</span>;
     return (
       <>
         <span>{projectEmoji}</span>

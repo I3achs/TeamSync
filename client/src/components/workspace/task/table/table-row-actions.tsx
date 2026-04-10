@@ -44,11 +44,11 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
       {
         onSuccess: (data) => {
           queryClient.invalidateQueries({ queryKey: ["all-tasks", workspaceId] });
-          toast({ title: "Success", description: data.message, variant: "success" });
+          toast({ title: "Thành công", description: data.message, variant: "success" });
           setTimeout(() => setOpenDialog(false), 100);
         },
         onError: (error) => {
-          toast({ title: "Error", description: error.message, variant: "destructive" });
+          toast({ title: "Lỗi", description: error.message, variant: "destructive" });
         },
       }
     );
@@ -60,13 +60,13 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="flex h-8 w-8 p-0 data-[state=open]:bg-muted">
             <MoreHorizontal />
-            <span className="sr-only">Open menu</span>
+            <span className="sr-only">Mở menu</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
           {/* Edit Task Option */}
           <DropdownMenuItem className="cursor-pointer" onClick={() => setOpenEditDialog(true)}>
-            <Pencil className="w-4 h-4 mr-2" /> Edit Task
+            <Pencil className="w-4 h-4 mr-2" /> Sửa Công việc
           </DropdownMenuItem>
           <DropdownMenuSeparator />
 
@@ -75,7 +75,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             className="!text-destructive cursor-pointer"
             onClick={() => setOpenDialog(true)}
           >
-            Delete Task
+            Xóa Công việc
             <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -90,10 +90,10 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         isLoading={isPending}
         onClose={() => setOpenDialog(false)}
         onConfirm={handleConfirm}
-        title="Delete Task"
-        description={`Are you sure you want to delete ${taskCode}?`}
-        confirmText="Delete"
-        cancelText="Cancel"
+        title="Xóa Công việc"
+        description={`Bạn có chắc chắn muốn xóa ${taskCode} không?`}
+        confirmText="Xóa"
+        cancelText="Hủy"
       />
     </>
   );

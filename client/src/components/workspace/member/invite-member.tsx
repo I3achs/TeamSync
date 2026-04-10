@@ -25,8 +25,8 @@ const InviteMember = () => {
       navigator.clipboard.writeText(inviteUrl).then(() => {
         setCopied(true);
         toast({
-          title: "Copied",
-          description: "Invite url copied to clipboard",
+          title: "Đã sao chép",
+          description: "Đã sao chép liên kết mời vào bộ nhớ tạm",
           variant: "success",
         });
         setTimeout(() => setCopied(false), 2000);
@@ -36,11 +36,11 @@ const InviteMember = () => {
   return (
     <div className="flex flex-col pt-0.5 px-0 ">
       <h5 className="text-lg  leading-[30px] font-semibold mb-1">
-        Invite members to join you
+        Mời thành viên tham gia
       </h5>
       <p className="text-sm text-muted-foreground leading-tight">
-        Anyone with an invite link can join this free Workspace. You can also
-        disable and create a new invite link for this Workspace at any time.
+        Bất kỳ ai có liên kết mời đều có thể tham gia Không gian làm việc miễn phí này. Bạn có thể
+        vô hiệu hóa hoặc tạo liên kết mời mới bất cứ lúc nào.
       </p>
 
       <PermissionsGuard showMessage requiredPermission={Permissions.ADD_MEMBER}>

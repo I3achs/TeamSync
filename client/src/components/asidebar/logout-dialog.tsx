@@ -34,7 +34,7 @@ const LogoutDialog = (props: {
     },
     onError: (error) => {
       toast({
-        title: "Error",
+        title: "Lỗi",
         description: error.message,
         variant: "destructive",
       });
@@ -52,19 +52,19 @@ const LogoutDialog = (props: {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Are you sure you want to log out?</DialogTitle>
+            <DialogTitle>Bạn có chắc chắn muốn đăng xuất?</DialogTitle>
             <DialogDescription>
-              This will end your current session and you will need to log in
-              again to access your account.
+              Phiên làm việc của bạn sẽ kết thúc và bạn sẽ cần đăng nhập lại để
+              truy cập tài khoản.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button disabled={isPending} type="button" onClick={handleLogout}>
               {isPending && <Loader className="animate-spin" />}
-              Sign out
+              Đăng xuất
             </Button>
             <Button type="button" onClick={() => setIsOpen(false)}>
-              Cancel
+              Hủy
             </Button>
           </DialogFooter>
         </DialogContent>

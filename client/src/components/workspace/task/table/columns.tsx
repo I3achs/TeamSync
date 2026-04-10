@@ -49,7 +49,7 @@ export const getColumns = (projectId?: string): ColumnDef<TaskType>[] => {
     {
       accessorKey: "title",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Title" />
+        <DataTableColumnHeader column={column} title="Tiêu đề" />
       ),
       cell: ({ row }) => {
         return (
@@ -70,7 +70,7 @@ export const getColumns = (projectId?: string): ColumnDef<TaskType>[] => {
           {
             accessorKey: "project",
             header: ({ column }: { column: Column<TaskType, unknown> }) => (
-              <DataTableColumnHeader column={column} title="Project" />
+              <DataTableColumnHeader column={column} title="Dự án" />
             ),
             cell: ({ row }: { row: Row<TaskType> }) => {
               const project = row.original.project;
@@ -93,7 +93,7 @@ export const getColumns = (projectId?: string): ColumnDef<TaskType>[] => {
     {
       accessorKey: "assignedTo",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Assigned To" />
+        <DataTableColumnHeader column={column} title="Người phụ trách" />
       ),
       cell: ({ row }) => {
         const assignee = row.original.assignedTo || null;
@@ -122,7 +122,7 @@ export const getColumns = (projectId?: string): ColumnDef<TaskType>[] => {
     {
       accessorKey: "dueDate",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Due Date" />
+        <DataTableColumnHeader column={column} title="Hạn chót" />
       ),
       cell: ({ row }) => {
         return (
@@ -135,7 +135,7 @@ export const getColumns = (projectId?: string): ColumnDef<TaskType>[] => {
     {
       accessorKey: "status",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Status" />
+        <DataTableColumnHeader column={column} title="Trạng thái" />
       ),
       cell: ({ row }) => {
         const status = statuses.find(
@@ -171,7 +171,7 @@ export const getColumns = (projectId?: string): ColumnDef<TaskType>[] => {
     {
       accessorKey: "priority",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Priority" />
+        <DataTableColumnHeader column={column} title="Mức độ ưu tiên" />
       ),
       cell: ({ row }) => {
         const priority = priorities.find(

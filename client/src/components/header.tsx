@@ -18,10 +18,10 @@ const Header = () => {
   const pathname = location.pathname;
 
   const getPageLabel = (pathname: string) => {
-    if (pathname.includes("/project/")) return "Project";
-    if (pathname.includes("/settings")) return "Settings";
-    if (pathname.includes("/tasks")) return "Tasks";
-    if (pathname.includes("/members")) return "Members";
+    if (pathname.includes("/project/")) return "Dự án";
+    if (pathname.includes("/settings")) return "Cài đặt";
+    if (pathname.includes("/tasks")) return "Công việc";
+    if (pathname.includes("/members")) return "Thành viên";
     return null; // Default label
   };
 
@@ -36,11 +36,11 @@ const Header = () => {
             <BreadcrumbItem className="hidden md:block text-[15px]">
               {pageHeading ? (
                 <BreadcrumbLink asChild>
-                  <Link to={`/workspace/${workspaceId}`}>Dashboard</Link>
+                  <Link to={`/workspace/${workspaceId}`}>Bảng điều khiển</Link>
                 </BreadcrumbLink>
               ) : (
                 <BreadcrumbPage className="line-clamp-1 ">
-                  Dashboard
+                  Bảng điều khiển
                 </BreadcrumbPage>
               )}
             </BreadcrumbItem>

@@ -12,11 +12,11 @@ export default function Members() {
         <div className="w-full max-w-3xl mx-auto pt-3">
           <div>
             <h2 className="text-lg leading-[30px] font-semibold mb-1">
-              Workspace members
+              Thành viên Không gian làm việc
             </h2>
             <p className="text-sm text-muted-foreground">
-              Workspace members can view and join all Workspace project, tasks
-              and create new task in the Workspace.
+              Các thành viên có thể xem và tham gia tất cả dự án, công việc
+              cũng như tạo công việc mới trong Không gian làm việc.
             </p>
           </div>
           <Separator className="my-4" />

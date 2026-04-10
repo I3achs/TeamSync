@@ -45,7 +45,7 @@ const RecentTasks = () => {
          text-sm text-muted-foreground
           text-center py-5"
         >
-          No Task created yet
+          Chưa có Công việc nào được tạo
         </div>
       )}
 
@@ -68,7 +68,7 @@ const RecentTasks = () => {
                   {task.title}
                 </p>
                 <span className="text-sm text-gray-500">
-                  Due: {task.dueDate ? format(task.dueDate, "PPP") : null}
+                  Hạn chót: {task.dueDate ? format(task.dueDate, "PPP") : null}
                 </span>
               </div>
 

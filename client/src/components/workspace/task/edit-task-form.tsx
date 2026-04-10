@@ -64,12 +64,12 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
   }));
 
   const formSchema = z.object({
-    title: z.string().trim().min(1, { message: "Title is required" }),
+    title: z.string().trim().min(1, { message: "Vui lòng nhập tiêu đề" }),
     description: z.string().trim(),
     status: z.enum(Object.values(TaskStatusEnum) as [keyof typeof TaskStatusEnum]),
     priority: z.enum(Object.values(TaskPriorityEnum) as [keyof typeof TaskPriorityEnum]),
-    assignedTo: z.string().trim().min(1, { message: "AssignedTo is required" }),
-    dueDate: z.date({ required_error: "A due date is required." }),
+    assignedTo: z.string().trim().min(1, { message: "Vui lòng chọn Người phụ trách" }),
+    dueDate: z.date({ required_error: "Vui lòng chọn Hạn chót." }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -101,15 +101,15 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["all-tasks", workspaceId] });
         toast({
-          title: "Success",
-          description: "Task updated successfully",
+          title: "Thành công",
+          description: "Cập nhật Công việc thành công",
           variant: "success",
         });
         onClose();
       },
       onError: (error) => {
         toast({
-          title: "Error",
+          title: "Lỗi",
           description: error.message,
           variant: "destructive",
         });
@@ -121,15 +121,15 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
     <div className="w-full h-auto max-w-full">
       <div className="h-full">
         <div className="mb-5 pb-2 border-b">
-          <h1 className="text-xl font-semibold text-center sm:text-left">Edit Task</h1>
+          <h1 className="text-xl font-semibold text-center sm:text-left">Sửa Công việc</h1>
         </div>
         <Form {...form}>
           <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
             {/* Title */}
             <FormField control={form.control} name="title" render={({ field }) => (
               <FormItem>
-                <FormLabel>Task Title</FormLabel>
-                <FormControl><Input {...field} placeholder="Task title" /></FormControl>
+                <FormLabel>Tiêu đề Công việc</FormLabel>
+                <FormControl><Input {...field} placeholder="Tiêu đề Công việc" /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
@@ -137,8 +137,8 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
             {/* Description */}
             <FormField control={form.control} name="description" render={({ field }) => (
               <FormItem>
-                <FormLabel>Task Description</FormLabel>
-                <FormControl><Textarea {...field} rows={2} placeholder="Description" /></FormControl>
+                <FormLabel>Mô tả Công việc</FormLabel>
+                <FormControl><Textarea {...field} rows={2} placeholder="Mô tả chi tiết" /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
@@ -146,9 +146,9 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
             {/* Assigned To */}
             <FormField control={form.control} name="assignedTo" render={({ field }) => (
               <FormItem>
-                <FormLabel>Assigned To</FormLabel>
+                <FormLabel>Người phụ trách</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
-                  <FormControl><SelectTrigger><SelectValue placeholder="Select an assignee" /></SelectTrigger></FormControl>
+                  <FormControl><SelectTrigger><SelectValue placeholder="Chọn người phụ trách" /></SelectTrigger></FormControl>
                   <SelectContent>
                   <div className="w-full max-h-[200px] overflow-y-auto scrollbar">
                     {membersOptions.map((option) => (
@@ -164,12 +164,12 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
             {/* Due Date */}
             <FormField control={form.control} name="dueDate" render={({ field }) => (
               <FormItem>
-                <FormLabel>Due Date</FormLabel>
+                <FormLabel>Hạn chót</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button variant="outline">
-                        {field.value ? format(field.value, "PPP") : "Pick a date"}
+                        {field.value ? format(field.value, "PPP") : "Chọn ngày"}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </FormControl>
@@ -185,9 +185,9 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
             {/* Status */}
             <FormField control={form.control} name="status" render={({ field }) => (
               <FormItem>
-                <FormLabel>Status</FormLabel>
+                <FormLabel>Trạng thái</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
-                  <FormControl><SelectTrigger><SelectValue placeholder="Select status" /></SelectTrigger></FormControl>
+                  <FormControl><SelectTrigger><SelectValue placeholder="Chọn Trạng thái" /></SelectTrigger></FormControl>
                   <SelectContent>
                     {statusOptions.map((status) => (
                       <SelectItem key={status.value} value={status.value}>{status.label}</SelectItem>
@@ -201,9 +201,9 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
             {/* Priority */}
             <FormField control={form.control} name="priority" render={({ field }) => (
               <FormItem>
-                <FormLabel>Priority</FormLabel>
+                <FormLabel>Mức độ ưu tiên</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
-                  <FormControl><SelectTrigger><SelectValue placeholder="Select priority" /></SelectTrigger></FormControl>
+                  <FormControl><SelectTrigger><SelectValue placeholder="Chọn Mức độ ưu tiên" /></SelectTrigger></FormControl>
                   <SelectContent>
                     {priorityOptions.map((priority) => (
                       <SelectItem key={priority.value} value={priority.value}>{priority.label}</SelectItem>
@@ -216,7 +216,7 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
 
             <Button type="submit" className="w-full" disabled={isPending}>
               {isPending && <Loader className="animate-spin" />}
-              Save Changes
+              Lưu Thay đổi
             </Button>
           </form>
         </Form>

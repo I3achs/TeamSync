@@ -31,7 +31,7 @@ export const registerUserController = asyncHandler(
     await registerUserService(body);
 
     return res.status(HTTPSTATUS.CREATED).json({
-      message: "User created successfully",
+      message: "Khởi tạo tài khoản thành công",
     });
   }
 );
@@ -51,7 +51,7 @@ export const loginController = asyncHandler(
 
         if (!user) {
           return res.status(HTTPSTATUS.UNAUTHORIZED).json({
-            message: info?.message || "Invalid email or password",
+            message: info?.message || "Email hoặc mật khẩu không chính xác",
           });
         }
 
@@ -61,7 +61,7 @@ export const loginController = asyncHandler(
           }
 
           return res.status(HTTPSTATUS.OK).json({
-            message: "Logged in successfully",
+            message: "Đăng nhập thành công",
             user,
           });
         });
@@ -77,13 +77,13 @@ export const logOutController = asyncHandler(
         console.error("Logout error:", err);
         return res
           .status(HTTPSTATUS.INTERNAL_SERVER_ERROR)
-          .json({ error: "Failed to log out" });
+          .json({ error: "Đăng xuất thất bại" });
       }
     });
 
     req.session = null;
     return res
       .status(HTTPSTATUS.OK)
-      .json({ message: "Logged out successfully" });
+      .json({ message: "Đăng xuất thành công" });
   }
 );

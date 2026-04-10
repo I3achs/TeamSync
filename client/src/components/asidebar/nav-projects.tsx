@@ -107,7 +107,7 @@ export function NavProjects() {
     <>
       <SidebarGroup className="group-data-[collapsible=icon]:hidden">
         <SidebarGroupLabel className="w-full justify-between pr-0">
-          <span>Projects</span>
+          <span>Dự án</span>
 
           <PermissionsGuard requiredPermission={Permissions.CREATE_PROJECT}>
             <button
@@ -120,7 +120,7 @@ export function NavProjects() {
           </PermissionsGuard>
         </SidebarGroupLabel>
         <SidebarMenu className="h-[320px] scrollbar overflow-y-auto pb-2">
-          {isError ? <div>Error occured</div> : null}
+          {isError ? <div>Đã xảy ra lỗi</div> : null}
           {isPending ? (
             <Loader
               className=" w-5 h-5
@@ -132,8 +132,8 @@ export function NavProjects() {
           {!isPending && projects?.length === 0 ? (
             <div className="pl-3">
               <p className="text-xs text-muted-foreground">
-                There is no projects in this Workspace yet. Projects you create
-                will show up here.
+                Chưa có dự án nào trong Không gian làm việc này. Các dự án bạn tạo
+                sẽ hiển thị ở đây.
               </p>
               <PermissionsGuard requiredPermission={Permissions.CREATE_PROJECT}>
                 <Button
@@ -142,7 +142,7 @@ export function NavProjects() {
                   className="h-0 p-0 text-[13px] underline font-semibold mt-4"
                   onClick={onOpen}
                 >
-                  Create a project
+                  Tạo dự án mới
                   <ArrowRight />
                 </Button>
               </PermissionsGuard>
@@ -175,7 +175,7 @@ export function NavProjects() {
                         onClick={() => navigate(`${projectUrl}`)}
                       >
                         <Folder className="text-muted-foreground" />
-                        <span>View Project</span>
+                        <span>Xem dự án</span>
                       </DropdownMenuItem>
 
                       <PermissionsGuard
@@ -187,7 +187,7 @@ export function NavProjects() {
                           onClick={() => onOpenDialog(item)}
                         >
                           <Trash2 className="text-muted-foreground" />
-                          <span>Delete Project</span>
+                          <span>Xóa dự án</span>
                         </DropdownMenuItem>
                       </PermissionsGuard>
                     </DropdownMenuContent>
@@ -205,7 +205,7 @@ export function NavProjects() {
                 onClick={fetchNextPage}
               >
                 <MoreHorizontal className="text-sidebar-foreground/70" />
-                <span>{isFetching ? "Loading..." : "More"}</span>
+                <span>{isFetching ? "Đang tải..." : "Xem thêm"}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )}
@@ -217,12 +217,12 @@ export function NavProjects() {
         isLoading={isLoading}
         onClose={onCloseDialog}
         onConfirm={handleConfirm}
-        title="Delete Project"
-        description={`Are you sure you want to delete ${
-          context?.name || "this item"
-        }? This action cannot be undone.`}
-        confirmText="Delete"
-        cancelText="Cancel"
+        title="Xóa dự án"
+        description={`Bạn có chắc chắn muốn xóa ${
+          context?.name || "mục này"
+        }? Hành động này không thể hoàn tác.`}
+        confirmText="Xóa"
+        cancelText="Hủy"
       />
     </>
   );

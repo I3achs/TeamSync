@@ -18,6 +18,11 @@ export interface TaskDocument extends Document {
   assignedTo: mongoose.Types.ObjectId | null;
   createdBy: mongoose.Types.ObjectId;
   dueDate: Date | null;
+  attachments?: {
+    url: string;
+    public_id: string;
+    name: string;
+  }[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -73,6 +78,13 @@ const taskSchema = new Schema<TaskDocument>(
       type: Date,
       default: null,
     },
+    attachments: [
+      {
+        url: { type: String, required: true },
+        public_id: { type: String, required: true },
+        name: { type: String, required: true },
+      },
+    ],
   },
   {
     timestamps: true,

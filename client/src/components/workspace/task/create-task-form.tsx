@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { useState } from "react";
 import { format } from "date-fns";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -38,7 +39,7 @@ import { TaskPriorityEnum, TaskStatusEnum } from "@/constant";
 import useGetProjectsInWorkspaceQuery from "@/hooks/api/use-get-projects";
 import useGetWorkspaceMembers from "@/hooks/api/use-get-workspace-members";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { createTaskMutationFn } from "@/lib/api";
+import { createTaskMutationFn, uploadTaskAttachmentMutationFn } from "@/lib/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
 
@@ -50,6 +51,29 @@ export default function CreateTaskForm(props: {
 
   const queryClient = useQueryClient();
   const workspaceId = useWorkspaceId();
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const { mutate: uploadMutate } = useMutation({
+    mutationFn: uploadTaskAttachmentMutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["all-tasks", workspaceId] });
+      toast({
+        title: "Tải tệp thành công",
+        description: "Đã đính kèm tệp vào công việc.",
+        variant: "success",
+      });
+      onClose();
+    },
+    onError: (error) => {
+      toast({
+        title: "Lỗi tải tệp",
+        description: error.message,
+        variant: "destructive",
+      });
+      onClose();
+    },
+  });
 
   const { mutate, isPending } = useMutation({
     mutationFn: createTaskMutationFn,
@@ -153,21 +177,26 @@ export default function CreateTaskForm(props: {
     };
 
     mutate(payload, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["project-analytics", projectId],
-        });
-
-        queryClient.invalidateQueries({
-          queryKey: ["all-tasks", workspaceId],
-        });
-
-        toast({
-          title: "Thành công",
-          description: "Tạo Công việc thành công",
-          variant: "success",
-        });
-        onClose();
+      onSuccess: (data: any) => {
+        if (selectedFile) {
+          toast({
+            title: "Đang tải tệp lên...",
+            description: "Vui lòng chờ trong giây lát.",
+          });
+          uploadMutate({
+            workspaceId,
+            projectId: data.task.project,
+            taskId: data.task._id,
+            file: selectedFile,
+          });
+        } else {
+          toast({
+            title: "Thành công",
+            description: "Tạo Công việc thành công",
+            variant: "success",
+          });
+          onClose();
+        }
       },
       onError: (error) => {
         toast({
@@ -452,6 +481,31 @@ export default function CreateTaskForm(props: {
                   </FormItem>
                 )}
               />
+            </div>
+
+            {/* {Attachment file} */}
+            <div>
+              <FormItem>
+                <FormLabel className="text-sm">Tài liệu đính kèm (Quy mô: 5MB)</FormLabel>
+                <FormControl>
+                  <Input 
+                    type="file" 
+                    className="text-xs !h-[40px] pt-2" 
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        if (file.size > 5 * 1024 * 1024) {
+                          toast({ title: "Lỗi", description: "Tệp vượt quá 5MB", variant: "destructive" });
+                          e.target.value = '';
+                          setSelectedFile(null);
+                        } else {
+                          setSelectedFile(file);
+                        }
+                      }
+                    }} 
+                  />
+                </FormControl>
+              </FormItem>
             </div>
 
             <Button

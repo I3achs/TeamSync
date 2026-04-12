@@ -261,3 +261,47 @@ export const deleteTaskMutationFn = async ({
   );
   return response.data;
 };
+
+export const uploadTaskAttachmentMutationFn = async ({
+  workspaceId,
+  projectId,
+  taskId,
+  file,
+}: {
+  workspaceId: string;
+  projectId: string;
+  taskId: string;
+  file: File;
+}): Promise<{ message: string; task: any }> => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await API.post(
+    `/task/${taskId}/project/${projectId}/workspace/${workspaceId}/upload`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return response.data;
+};
+
+export const deleteTaskAttachmentMutationFn = async ({
+  workspaceId,
+  projectId,
+  taskId,
+  publicId,
+}: {
+  workspaceId: string;
+  projectId: string;
+  taskId: string;
+  publicId: string;
+}): Promise<{ message: string; task: any }> => {
+  const response = await API.post(
+    `/task/${taskId}/project/${projectId}/workspace/${workspaceId}/attachment/delete`,
+    { publicId }
+  );
+  return response.data;
+};

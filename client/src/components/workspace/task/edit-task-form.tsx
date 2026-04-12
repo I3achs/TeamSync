@@ -2,7 +2,7 @@ import { z } from "zod";
 import { format } from "date-fns";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { CalendarIcon, Loader } from "lucide-react";
+import { CalendarIcon, Loader, Trash2 } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -30,7 +30,7 @@ import { Calendar } from "@/components/ui/calendar";
 import useWorkspaceId from "@/hooks/use-workspace-id";
 import { TaskPriorityEnum, TaskStatusEnum } from "@/constant";
 import useGetWorkspaceMembers from "@/hooks/api/use-get-workspace-members";
-import { editTaskMutationFn } from "@/lib/api";
+import { editTaskMutationFn, uploadTaskAttachmentMutationFn, deleteTaskAttachmentMutationFn } from "@/lib/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
 import { TaskType } from "@/types/api.type";
@@ -42,6 +42,55 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
   const { mutate, isPending } = useMutation({
     mutationFn: editTaskMutationFn,
   });
+
+  const { mutate: uploadMutate, isPending: isUploading } = useMutation({
+    mutationFn: uploadTaskAttachmentMutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["all-tasks", workspaceId] });
+      toast({
+        title: "Tải lên thành công",
+        description: "Tệp đính kèm đã được thêm vào công việc.",
+        variant: "success",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Lỗi tải lên",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const { mutate: deleteAttachmentMutate, isPending: isDeletingAttachment } = useMutation({
+    mutationFn: deleteTaskAttachmentMutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["all-tasks", workspaceId] });
+      toast({
+        title: "Đã xóa tệp",
+        description: "Tệp đính kèm đã được xóa khỏi hệ thống.",
+        variant: "success",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Lỗi",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({ title: "Lỗi", description: "Tệp vượt quá 5MB", variant: "destructive" });
+        return;
+      }
+      uploadMutate({ workspaceId, projectId: task.project?._id ?? "", taskId: task._id, file });
+    }
+  };
 
   const { data: memberData } = useGetWorkspaceMembers(workspaceId);
   const members = memberData?.members || [];
@@ -214,12 +263,48 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
               </FormItem>
             )} />
 
-            <Button type="submit" className="w-full" disabled={isPending}>
+            <Button type="submit" className="w-full" disabled={isPending || isUploading}>
               {isPending && <Loader className="animate-spin" />}
               Lưu Thay đổi
             </Button>
           </form>
         </Form>
+
+        <div className="mt-8 pt-4 border-t space-y-4 relative pb-10">
+          <h2 className="text-sm font-semibold">Tài liệu đính kèm (Quy mô tối đa: 5MB)</h2>
+          
+          {task.attachments && task.attachments.length > 0 ? (
+            <ul className="space-y-2 mb-4">
+              {task.attachments.map((file, idx) => (
+                <li key={idx} className="flex items-center justify-between gap-2 text-sm text-blue-600 bg-blue-50 p-2 rounded-md">
+                  <a href={file.url} target="_blank" rel="noreferrer" className="truncate hover:underline">
+                    {file.name}
+                  </a>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    disabled={isDeletingAttachment}
+                    className="h-6 w-6 p-0 text-red-500 hover:text-red-700 hover:bg-red-100"
+                    onClick={() => {
+                      if (window.confirm("Bạn có chắc chắn muốn xóa tệp này vĩnh viễn?")) {
+                        deleteAttachmentMutate({ workspaceId, projectId: task.project?._id ?? "", taskId: task._id, publicId: file.public_id });
+                      }
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-xs text-muted-foreground p-2 bg-gray-50 rounded-md">Chưa có tệp nào được đính kèm.</p>
+          )}
+
+          <div className="flex items-center gap-2 mt-2">
+            <Input type="file" onChange={handleFileUpload} disabled={isUploading} className="text-xs" />
+            {isUploading && <Loader className="animate-spin h-4 w-4" />}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../middlewares/asyncHandler.middleware";
+import { BadRequestException } from "../utils/appError";
 import {
   createTaskSchema,
   taskIdSchema,
@@ -16,6 +17,8 @@ import {
   getAllTasksService,
   getTaskByIdService,
   updateTaskService,
+  uploadAttachmentService,
+  deleteAttachmentService,
 } from "../services/task.service";
 import { HTTPSTATUS } from "../config/http.config";
 
@@ -143,6 +146,68 @@ export const deleteTaskController = asyncHandler(
 
     return res.status(HTTPSTATUS.OK).json({
       message: "Xóa công việc thành công",
+    });
+  }
+);
+
+export const uploadAttachmentController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const userId = req.user?._id;
+
+    const taskId = taskIdSchema.parse(req.params.id);
+    const projectId = projectIdSchema.parse(req.params.projectId);
+    const workspaceId = workspaceIdSchema.parse(req.params.workspaceId);
+
+    const file = req.file;
+    if (!file) {
+      throw new BadRequestException("Không tìm thấy tệp đính kèm");
+    }
+
+    const { role } = await getMemberRoleInWorkspace(userId, workspaceId);
+    roleGuard(role, [Permissions.EDIT_TASK]);
+
+    const { task } = await uploadAttachmentService(
+      workspaceId,
+      projectId,
+      taskId,
+      file
+    );
+
+    return res.status(HTTPSTATUS.OK).json({
+      message: "Tải lên tệp thành công",
+      task,
+    });
+  }
+);
+
+export const deleteAttachmentController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const userId = req.user?._id;
+
+    const taskId = taskIdSchema.parse(req.params.id);
+    const projectId = projectIdSchema.parse(req.params.projectId);
+    const workspaceId = workspaceIdSchema.parse(req.params.workspaceId);
+    
+    // public_id can contain slashes so it's safer to pass it in body
+    const publicId = req.body.publicId;
+
+    if (!publicId) {
+      throw new BadRequestException("Public ID is required");
+    }
+
+    const { role } = await getMemberRoleInWorkspace(userId, workspaceId);
+    roleGuard(role, [Permissions.EDIT_TASK]);
+
+    const { task } = await deleteAttachmentService(
+      workspaceId,
+      projectId,
+      taskId,
+      publicId
+    );
+
+    return res.status(HTTPSTATUS.OK).json({
+      message: "Gỡ tệp đính kèm thành công",
+      task,
     });
   }
 );

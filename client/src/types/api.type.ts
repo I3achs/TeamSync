@@ -262,6 +262,11 @@ export type TaskType = {
   createdBy?: string;
   dueDate: string;
   taskCode: string;
+  attachments?: {
+    url: string;
+    public_id: string;
+    name: string;
+  }[];
   createdAt?: string;
   updatedAt?: string;
 };

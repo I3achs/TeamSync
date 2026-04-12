@@ -19,6 +19,7 @@ import workspaceRoutes from "./routes/workspace.route";
 import memberRoutes from "./routes/member.route";
 import projectRoutes from "./routes/project.route";
 import taskRoutes from "./routes/task.route";
+import { initTaskReminderCron } from "./cron/taskReminder";
 
 const app = express();
 const BASE_PATH = config.BASE_PATH;
@@ -69,4 +70,7 @@ app.use(errorHandler);
 app.listen(config.PORT, async () => {
   console.log(`Server listening on port ${config.PORT} in ${config.NODE_ENV}`);
   await connectDatabase();
+  
+  // Khởi động các Background Jobs
+  initTaskReminderCron();
 });
